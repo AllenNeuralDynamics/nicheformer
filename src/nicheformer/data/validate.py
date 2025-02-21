@@ -3,8 +3,8 @@ from datetime import datetime
 from typing import Literal
 
 from anndata import AnnData
-#from cellxgene_schema.ontology import GeneChecker, SupportedOrganisms
-#from cellxgene_schema.utils import enforce_canonical_format
+from cellxgene_schema.ontology import GeneChecker, SupportedOrganisms
+from cellxgene_schema.utils import enforce_canonical_format
 from cellxgene_schema.validate import Validator as CellxgeneValidator
 from cellxgene_schema.validate import logger
 from cellxgene_schema.write_labels import AnnDataLabelAppender as CellxgeneAnnDataLabelAppender
@@ -44,17 +44,17 @@ def validate(
         logging.basicConfig(level=logging.INFO, format="%(message)s")
 
     # check genes and filter out invalid ones
-    #if organism == "mouse":
-    #    gene_checker = GeneChecker(SupportedOrganisms.MUS_MUSCULUS)
-    #elif organism == "human":
-    #    gene_checker = GeneChecker(SupportedOrganisms.HOMO_SAPIENS)
-    #else:
-    #    raise ValueError("Only supported organisms are `mouse` and `human`.")
+    if organism == "mouse":
+        gene_checker = GeneChecker(SupportedOrganisms.MUS_MUSCULUS)
+    elif organism == "human":
+        gene_checker = GeneChecker(SupportedOrganisms.HOMO_SAPIENS)
+    else:
+        raise ValueError("Only supported organisms are `mouse` and `human`.")
 
     valid_genes = []
     for gene in adata.var_names:
-        # if gene_checker.is_valid_id(gene):
-        valid_genes.append(gene)
+        if gene_checker.is_valid_id(gene):
+            valid_genes.append(gene)
     if len(valid_genes) == 0:
         raise AssertionError(
             f"No valid {organism} genes are found! Make sure the variables are indexed by Ensembl Gene IDs!"
@@ -89,7 +89,7 @@ def validate(
 def _print_valid_ontologies(errors: list[str]) -> None:
     enum_map = {
         "assay_ontology_term_id": AssayOntologyTermId,
-        #"organism_ontology_term_id": SupportedOrganisms,
+        "organism_ontology_term_id": SupportedOrganisms,
         "sex_ontology_term_id": SexOntologyTermId,
         "suspension_type": SuspensionTypeId,
         "tissue_ontology_term_id": TissueOntologyTermId,
@@ -245,7 +245,7 @@ class AnnDataLabelAppender(CellxgeneAnnDataLabelAppender):
         self.adata.uns["schema_version"] = self.validator.schema_version
         self.adata.uns["nicheformer_version"] = self.validator.nicheformer_version
 
-        #enforce_canonical_format(self.adata)
+        enforce_canonical_format(self.adata)
 
         # Print errors if any
         if self.errors:
