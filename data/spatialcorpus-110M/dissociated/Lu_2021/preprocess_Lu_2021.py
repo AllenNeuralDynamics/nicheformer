@@ -21,7 +21,7 @@ if not os.path.exists(f"{preprocessed_path}"):
     os.mkdir(f"{preprocessed_path}")
 
 # In most cases only this section needs to be updates for the dataset
-geo_id = 'GSE172127'
+# geo_id = 'GSE172127'
 doi = "10.1038/s41421-021-00266-1"
 
 ## manual entries that are equal across the dataset
@@ -36,14 +36,14 @@ condition_id = "wild type"
 
 sample_ids = ["GSM5242402_E14.5FL", "GSM5242403_E14.5FL_HSC"]
 adatas = []
-with tqdm(total=len(sample_ids), desc =geo_id) as pbar:
+with tqdm(total=len(sample_ids), desc =sample_ids) as pbar:
     for sample in sample_ids:
         # reading of raw files
-        adata = sc.read_mtx(f"{raw_path}/{geo_id}/{sample}_matrix.mtx.gz").T
-        features = pd.read_table(f"{raw_path}/{geo_id}/{sample}_features.tsv.gz", index_col=0, header=None)
+        adata = sc.read_mtx(f"{raw_path}/{sample}_matrix.mtx.gz").T
+        features = pd.read_table(f"{raw_path}/{sample}_features.tsv.gz", index_col=0, header=None)
         features.columns = ["gene_name", "feature_types"]
         features.index.name = 'gene_ids'
-        barcodes = pd.read_table(f"{raw_path}/{geo_id}/{sample}_barcodes.tsv.gz", index_col=0, header=None)
+        barcodes = pd.read_table(f"{raw_path}/{sample}_barcodes.tsv.gz", index_col=0, header=None)
         barcodes.index.name = None
         adata.var = features
         adata.obs = barcodes
