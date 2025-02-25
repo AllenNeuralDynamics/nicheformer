@@ -7,7 +7,7 @@ name = "nicheformer"
 version = "0.0.1"
 description = "Nicheformer: a foundation model for single-cell and spatial omics"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = "3.10"
 license = {file = "LICENSE"}
 authors = [
     {name = "Anna Schaar"},

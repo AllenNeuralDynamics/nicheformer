@@ -1,0 +1,34 @@
+{
+	"version": 1,
+	"base_image": "codeocean/cuda-miniconda-jupyterlab:latest",
+	"post_install": true,
+	"options": {
+		"registry_host_arg": true,
+		"git_ask_pass": true
+	},
+	"installers": {
+		"vscode": {
+			"packages": [
+				{
+					"name": "REditorSupport.R"
+				},
+				{
+					"name": "continue.continue"
+				},
+				{
+					"name": "ms-python.python"
+				},
+				{
+					"name": "ms-toolsai.jupyter"
+				},
+				{
+					"name": "reageyao.bioSyntax"
+				},
+				{
+					"name": "saoudrizwan.claude-dev"
+				}
+			],
+			"version": "4.95.3"
+		}
+	}
+}

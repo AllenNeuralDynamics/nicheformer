@@ -1,0 +1,9 @@
+{
+	"version": 1,
+	"attached_datasets": [
+		{
+			"id": "aa052632-8339-4695-ba8a-fb42b1b6a6ec",
+			"mount": "nicheformer_weights"
+		}
+	]
+}
