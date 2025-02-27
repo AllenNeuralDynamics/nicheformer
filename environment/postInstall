@@ -1,12 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-# Install nicheformer 
-pip install -e git+https://github.com/AllenNeuralDynamics/nicheformer.git@shaomai_studio#egg=nicheformer
-
-#!/usr/bin/env bash
-set -e
-
 # check if code-server is installed, and then install extensions into specified directory
 if code-server --disable-telemetry --version; then
 if [ ! -d "/.vscode/extensions" ]
@@ -15,13 +9,13 @@ if [ ! -d "/.vscode/extensions" ]
        mkdir -p /.vscode/extensions/
        fi
        
-       code-server --install-extension ms-python.python
-       code-server --install-extension njpwerner.autodocstring
-       code-server --install-extension KevinRose.vsc-python-indent
-       code-server --install-extension mhutchie.git-graph
-       code-server --install-extension zhuangtongfa.material-theme
-       code-server --install-extension ms-python.black-formatter
-	  	 code-server --install-extension ryanluker.vscode-coverage-gutters
+       code-server --disable-telemetry --extensions-dir=/.vscode/extensions --install-extension ms-python.python
+       code-server --disable-telemetry --extensions-dir=/.vscode/extensions --install-extension njpwerner.autodocstring
+       code-server --disable-telemetry --extensions-dir=/.vscode/extensions --install-extension KevinRose.vsc-python-indent
+       code-server --disable-telemetry --extensions-dir=/.vscode/extensions --install-extension mhutchie.git-graph
+       code-server --disable-telemetry --extensions-dir=/.vscode/extensions --install-extension zhuangtongfa.material-theme
+       code-server --disable-telemetry --extensions-dir=/.vscode/extensions --install-extension ms-python.black-formatter
+	  	 code-server --disable-telemetry --extensions-dir=/.vscode/extensions --install-extension ryanluker.vscode-coverage-gutters
        
        curl -L -o copilot_1.161.zip https://github.com/user-attachments/files/16859733/copilot_1.161.zip
        unzip copilot_1.161.zip
